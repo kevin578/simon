@@ -1,0 +1,91 @@
+body {
+	background: #d1a970;
+}
+
+#simon-game {
+  width: 600px;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#background {
+  fill: #070100;
+}
+
+#green {
+  fill: #0f910f;
+	cursor: pointer;
+}
+
+#green:active {
+	fill: #18dd18;
+		transform: scale(.99) translate(5px, 5px);
+}
+
+#red, #yellow, #blue, #red, #start-button, #strict-button {
+	cursor: pointer;
+}
+
+#red:active, #yellow:active, #blue:active, #green:active, #start-button:active, #strict-button:active {
+			transform: scale(.99) translate(5px, 5px);
+}
+
+
+#red {
+  fill: #af1313;
+
+}
+
+#red:active {
+	fill: #ff0f0f;
+}
+
+
+#yellow {
+  fill: #afaf13;
+}
+
+#yellow:active {
+	fill:#fff319
+}
+
+#blue {
+  fill: #134faf;
+
+}
+
+#blue:active {
+	fill: #0f4fff
+}
+
+#top-center-background {
+  fill: #1A1A1A;
+}
+
+#bottom-center-background {
+  fill: #999999;
+}
+
+#simon-label {
+  fill: #808080;
+}
+
+#start-button {
+  fill: #af1313;
+	stroke: black;
+	stroke-width: 3px;
+}
+
+#strict-button {
+  fill: #afaf13;
+	stroke: black;
+	stroke-width: 3px;
+}
+
+.label-text {
+  font-family: 'Helvetica-Bold';
+  font-size: 17px;
+  color: black;
+}

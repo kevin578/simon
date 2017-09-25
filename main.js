@@ -13,41 +13,39 @@ $(document).ready(function() {
   }
 
 
-turnOnLight("#red")
 
-function turnOnLight(light) {
+  var sequence = ["#red", "#blue", "#yellow"];
 
-  new Promise(function(resolve){
-    $(light).css('fill','#ff0f0f');
-    setTimeout(resolve, 1000);
-  })
-  .then(function(){
-    $(light).css('fill','#af1313');
-  })
+goThroughArray(sequence);
 
 
-}
+  function goThroughArray(arr) {
+  var i = 0;
+    new Promise(function(resolve){
+      resolve(turnOnLight(sequence[i]));
+    })
+    .then(function(){
+      console.log("finish")
+    })
+  }
 
 
 
-  function goThroughArray(stopTime) {
-    var i = 0;
 
-    iterate();
 
-    function iterate() {
-      new Promise(function(resolve) {
-          setTimeout(resolve, 1000);
-        })
-        .then(function() {
-          console.log(i)
-          i++
-          if (i <  stopTime) iterate();
-        })
+  function turnOnLight(light) {
 
-    }
+    return new Promise(function(resolve) {
+        $(light).css('fill', '#ff0f0f');
+        setTimeout(resolve, 1000);
+      })
+      .then(function() {
+        $(light).css('fill', '#af1313');
+      })
+
 
   }
+
 
   $("#count-text").text(counterNum);
 

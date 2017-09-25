@@ -1,3 +1,9 @@
+@font-face {
+ font-family: "dsDigital";
+ src: url("DS-DIGI.TTF") format('truetype');
+}
+
+
 body {
 	background: #d1a970;
 }
@@ -82,6 +88,24 @@ body {
   fill: #afaf13;
 	stroke: black;
 	stroke-width: 3px;
+}
+
+#strict-status {
+	transition: .3s;
+}
+
+
+#count-text {
+	fill: #ff6159;
+	font-size: 44px;
+	font-family: "dsDigital";
+	font-weight: bold;
+
+
+}
+
+#count-box {
+	fill: #190000;
 }
 
 .label-text {

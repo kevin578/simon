@@ -1,3 +1,14 @@
+
+var lightColors = {
+  "#blue": {dim: "#134faf", lit: "#0f4fff"},
+  "#red": {dim: "#af1313", lit: "#ff0f0f"},
+  "#yellow": {dim: "#afaf13", lit: "#fff319"},
+  "#green": {dim: "#0f910f", lit: "#18dd18"}
+}
+
+
+
+
 $(document).ready(function() {
 
   var counterNum = 0;
@@ -14,19 +25,29 @@ $(document).ready(function() {
 
 
 
-  var sequence = ["#red", "#blue", "#yellow"];
+
+
+var sequence = ["#red", "#blue", "#yellow", "#yellow", "#green"];
 
 goThroughArray(sequence);
 
 
-  function goThroughArray(arr) {
+function goThroughArray(arr) {
   var i = 0;
+  iterate();
+
+  function iterate(){
     new Promise(function(resolve){
-      resolve(turnOnLight(sequence[i]));
+      resolve(turnOnLight(arr[i]));
     })
-    .then(function(){
-      console.log("finish")
+    .then(function(resolve){
+      i++;
+      setTimeout(iterateCallback, 1000);
     })
+    function iterateCallback(){
+      if (i < arr.length) iterate()
+    }
+  }
   }
 
 
@@ -34,13 +55,12 @@ goThroughArray(sequence);
 
 
   function turnOnLight(light) {
-
     return new Promise(function(resolve) {
-        $(light).css('fill', '#ff0f0f');
+        $(light).css('fill', lightColors[light].lit);
         setTimeout(resolve, 1000);
       })
       .then(function() {
-        $(light).css('fill', '#af1313');
+         $(light).css('fill', lightColors[light].dim);
       })
 
 

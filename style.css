@@ -54,7 +54,7 @@ body {
 }
 
 #yellow:active {
-	fill:#fff319
+	fill:#fff319;
 }
 
 #blue {
@@ -63,7 +63,7 @@ body {
 }
 
 #blue:active {
-	fill: #0f4fff
+	fill: #0f4fff;
 }
 
 #top-center-background {

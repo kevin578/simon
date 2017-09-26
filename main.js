@@ -40,15 +40,18 @@ function goThroughArray(arr) {
     new Promise(function(resolve){
       resolve(turnOnLight(arr[i]));
     })
-    .then(function(resolve){
+    .then(function(){
       i++;
-      setTimeout(iterateCallback, 1000);
+      return new Promise(function(resolve){
+      setTimeout(resolve, 500);
     })
-    function iterateCallback(){
-      if (i < arr.length) iterate()
+  })
+    .then(function(){
+        if (i < arr.length) iterate();
+      });
     }
   }
-  }
+
 
 
 

@@ -20,14 +20,14 @@ body {
   fill: #070100;
 }
 
-#green {
+.green {
   fill: #0f910f;
 	cursor: pointer;
 }
 
-#green:active {
+.green:active, .green-pressed {
 	fill: #18dd18;
-		transform: scale(.99) translate(5px, 5px);
+
 }
 
 #red, #yellow, #blue, #red, #start-button, #strict-button {
@@ -39,30 +39,29 @@ body {
 }
 
 
-#red {
+.red {
   fill: #af1313;
 
 }
 
-#red:active {
+.red:active, .red-pressed {
 	fill: #ff0f0f;
 }
 
 
-#yellow {
+.yellow {
   fill: #afaf13;
 }
 
-#yellow:active {
+.yellow:active, .yellow-pressed {
 	fill:#fff319;
 }
 
-#blue {
+.blue {
   fill: #134faf;
-
 }
 
-#blue:active {
+.blue:active, .blue-pressed {
 	fill: #0f4fff;
 }
 

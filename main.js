@@ -1,18 +1,21 @@
-
+//object to tie ids to classes
 var lightColors = {
-  "#blue": {dim: "#134faf", lit: "#0f4fff"},
-  "#red": {dim: "#af1313", lit: "#ff0f0f"},
-  "#yellow": {dim: "#afaf13", lit: "#fff319"},
-  "#green": {dim: "#0f910f", lit: "#18dd18"}
+  "#blue": "blue-pressed",
+  "#red": "red-pressed",
+  "#yellow": "yellow-pressed",
+  "#green": "green-pressed"
 }
 
 
 
-
+//declares variables and controls stictMode button
 $(document).ready(function() {
 
   var counterNum = 0;
-
+  var simonTurn = "human";
+//Array that holds aiSequence for simon to play
+  var aiSequence = [];
+  var huSequence = [];
   var strictMode = {
     isOn: false,
 
@@ -23,14 +26,32 @@ $(document).ready(function() {
 
   }
 
+//gets a random new light and adds it to the aiSequence array
+function addAiLight() {
+  var colors = ["#blue", "#red", "#yellow", "#green"]
+  aiSequence.push(colors[getRandomInt(0,4)]);
+
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  }
+  goThroughArray(arr)
+}
+
+//adds light to human array once button is pressed
+function addHuLight(light){
+  if (simonTurn == "human") {
+  var colorID = "#" + light;
+  huSequence.push(colorID)
+}
+}
 
 
 
 
-var sequence = ["#red", "#blue", "#yellow", "#yellow", "#green"];
 
-goThroughArray(sequence);
-
+//iterates through array and lights up everything in aiSequence array
 
 function goThroughArray(arr) {
   var i = 0;
@@ -48,50 +69,34 @@ function goThroughArray(arr) {
   })
     .then(function(){
         if (i < arr.length) iterate();
+        else simonTurn = "human";
       });
     }
   }
-
-
-
-
-
-
   function turnOnLight(light) {
     return new Promise(function(resolve) {
-        $(light).css('fill', lightColors[light].lit);
+        $(light).toggleClass(lightColors[light]);
         setTimeout(resolve, 1000);
       })
       .then(function() {
-         $(light).css('fill', lightColors[light].dim);
+        $(light).toggleClass(lightColors[light]);
       })
-
-
   }
 
 
+
+
+  //displays number in the count text
   $("#count-text").text(counterNum);
 
-
-  $("#red").click(function() {
-    console.log("red clicked");
+// functions for when buttons are clicked
+  $(".color-button").click(function() {
+    addHuLight(this.id);
   })
 
-  $("#yellow").click(function() {
-    console.log("yellow clicked")
-  });
-
-  $("#green").click(function() {
-    console.log("green clicked")
-  });
-
-  $("#blue").click(function() {
-    console.log("blue clicked")
-  });
-
-  $("#start-button").click(function() {
-    console.log("start clicked")
-  });
+  $("#start-button").click(function(){
+    
+  })
 
   $("#strict-button").click(function() {
     strictMode.toggle();

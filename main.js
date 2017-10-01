@@ -6,7 +6,7 @@ var lightColors = {
   "#green": "green-pressed"
 }
 
-
+var synth = new Tone.Synth().toMaster();
 
 //declares variables and controls stictMode button
 $(document).ready(function() {
@@ -22,6 +22,7 @@ $(document).ready(function() {
 //Array that holds aiSequence for simon to play
   var aiSequence = [];
   var huSequence = [];
+  var huCounter = 0;
   var strictMode = {
     isOn: false,
 
@@ -35,17 +36,12 @@ $(document).ready(function() {
   counter.show();
 
 function mainSequence(){
-
   addAiLight();
   counter.value++
   counter.show();
-  new Promise(function(resolve){
-    resolve(goThroughArray(aiSequence))
-  })
+  Promise.resolve(goThroughArray(aiSequence))
   .then (function(){
     simonTurn = "human";
-
-
   });
 }
 
@@ -69,6 +65,43 @@ function addHuLight(light){
 }
 }
 
+//checks if human button is same as what the computer wants
+function checkAgainst(){
+
+  if (huSequence[huCounter] == aiSequence[huCounter]){
+    console.log("correct")
+    huCounter++;
+    checkForDone();
+  }
+  else {
+    console.log("incorrect")
+    setTimeout(function(){
+    if (strictMode.isOn) {
+      resestGame();
+      mainSequence();
+    }
+    else {
+      huCounter = 0;
+      simonTurn = "aiPlayer"
+      huSequence = [];
+      Promise.resolve(goThroughArray(aiSequence))
+      .then (function(){
+        simonTurn = "human";
+      });
+    }
+  }, 700);
+  }
+
+  function checkForDone(){
+    if (huCounter >= aiSequence.length) {
+      simonTurn = "aiPlayer";
+      huCounter = 0;
+      huSequence = [];
+      setTimeout(mainSequence, 1000);
+    }
+  }
+}
+
 
 
 
@@ -79,10 +112,9 @@ function goThroughArray(arr) {
   var i = 0;
   return iterate();
 
+
   function iterate(){
-    return new Promise(function(resolve){
-      resolve(turnOnLight(arr[i]));
-    })
+    return Promise.resolve(turnOnLight(arr[i]))
     .then(function(){
       i++;
       return new Promise(function(resolve){
@@ -111,10 +143,16 @@ function goThroughArray(arr) {
 
 // functions for when buttons are clicked
   $(".color-button").click(function() {
-    addHuLight(this.id);
+    if (simonTurn = "human") {
+        addHuLight(this.id);
+        synth.triggerAttackRelease("C4", "8n");
+        checkAgainst();
+    }
+
   })
 
   $("#start-button").click(function(){
+    resestGame();
     mainSequence();
   })
 
@@ -122,6 +160,13 @@ function goThroughArray(arr) {
     strictMode.toggle();
   });
 
-
+function resestGame() {
+  simonTurn = "aiPlayer";
+  huCounter = 0;
+  huSequence = [];
+  aiSequence = [];
+  counter.value = 0;
+  counter.show();
+}
 
 });

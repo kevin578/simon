@@ -26,6 +26,13 @@ $(document).ready(function() {
 
   }
 
+function mainSequence(){
+  addAiLight();
+  goThroughArray(arr)
+  simonTurn = "human";
+  dsfa
+}
+
 //gets a random new light and adds it to the aiSequence array
 function addAiLight() {
   var colors = ["#blue", "#red", "#yellow", "#green"]
@@ -36,7 +43,6 @@ function addAiLight() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
-  goThroughArray(arr)
 }
 
 //adds light to human array once button is pressed
@@ -95,7 +101,7 @@ function goThroughArray(arr) {
   })
 
   $("#start-button").click(function(){
-    
+
   })
 
   $("#strict-button").click(function() {

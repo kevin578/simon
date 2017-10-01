@@ -11,8 +11,14 @@ var lightColors = {
 //declares variables and controls stictMode button
 $(document).ready(function() {
 
-  var counterNum = 0;
-  var simonTurn = "human";
+  var counter = {
+    value: 0,
+    show: function(){
+
+      $("#count-text").text(this.value);
+    }
+  }
+  var simonTurn = "aiPlayer";
 //Array that holds aiSequence for simon to play
   var aiSequence = [];
   var huSequence = [];
@@ -26,11 +32,21 @@ $(document).ready(function() {
 
   }
 
+  counter.show();
+
 function mainSequence(){
+
   addAiLight();
-  goThroughArray(arr)
-  simonTurn = "human";
-  dsfa
+  counter.value++
+  counter.show();
+  new Promise(function(resolve){
+    resolve(goThroughArray(aiSequence))
+  })
+  .then (function(){
+    simonTurn = "human";
+
+
+  });
 }
 
 //gets a random new light and adds it to the aiSequence array
@@ -61,10 +77,10 @@ function addHuLight(light){
 
 function goThroughArray(arr) {
   var i = 0;
-  iterate();
+  return iterate();
 
   function iterate(){
-    new Promise(function(resolve){
+    return new Promise(function(resolve){
       resolve(turnOnLight(arr[i]));
     })
     .then(function(){
@@ -73,9 +89,9 @@ function goThroughArray(arr) {
       setTimeout(resolve, 500);
     })
   })
-    .then(function(){
+    .then(function(resolve){
         if (i < arr.length) iterate();
-        else simonTurn = "human";
+        else resolve
       });
     }
   }
@@ -92,8 +108,6 @@ function goThroughArray(arr) {
 
 
 
-  //displays number in the count text
-  $("#count-text").text(counterNum);
 
 // functions for when buttons are clicked
   $(".color-button").click(function() {
@@ -101,7 +115,7 @@ function goThroughArray(arr) {
   })
 
   $("#start-button").click(function(){
-
+    mainSequence();
   })
 
   $("#strict-button").click(function() {

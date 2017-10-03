@@ -3,6 +3,8 @@
  src: url("DS-DIGI.TTF") format('truetype');
 }
 
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Expanded');
+
 
 body {
 	background: #d1a970;
@@ -111,4 +113,9 @@ body {
   font-family: 'Helvetica-Bold';
   font-size: 17px;
   color: black;
+}
+
+#tagline {
+  text-align: center;
+  font-family: 'Encode Sans Expanded', sans-serif;
 }

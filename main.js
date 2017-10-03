@@ -6,7 +6,14 @@ var lightColors = {
   "#green": "green-pressed"
 }
 
-var synth = new Tone.Synth().toMaster();
+var buttonSounds = new Tone.Synth().toMaster();
+var wrongSound = new Tone.MonoSynth().toMaster();
+var colorNotes = {
+  "#blue": "C4",
+  "#red": "E4",
+  "#yellow": "G4",
+  "#green": "C5"
+}
 
 //declares variables and controls stictMode button
 $(document).ready(function() {
@@ -69,12 +76,13 @@ function addHuLight(light){
 function checkAgainst(){
 
   if (huSequence[huCounter] == aiSequence[huCounter]){
+    buttonSounds.triggerAttackRelease(colorNotes[huSequence[huCounter]], "8n");
     console.log("correct")
     huCounter++;
     checkForDone();
   }
   else {
-    console.log("incorrect")
+    wrongSound.triggerAttackRelease("C4", "8n");
     setTimeout(function(){
     if (strictMode.isOn) {
       resestGame();
@@ -89,7 +97,7 @@ function checkAgainst(){
         simonTurn = "human";
       });
     }
-  }, 700);
+  }, 1000);
   }
 
   function checkForDone(){
@@ -129,6 +137,7 @@ function goThroughArray(arr) {
   }
   function turnOnLight(light) {
     return new Promise(function(resolve) {
+        buttonSounds.triggerAttackRelease(colorNotes[light], "8n");
         $(light).toggleClass(lightColors[light]);
         setTimeout(resolve, 1000);
       })
@@ -145,7 +154,6 @@ function goThroughArray(arr) {
   $(".color-button").click(function() {
     if (simonTurn = "human") {
         addHuLight(this.id);
-        synth.triggerAttackRelease("C4", "8n");
         checkAgainst();
     }
 

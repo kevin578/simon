@@ -125,9 +125,9 @@ function goThroughArray(arr) {
     return Promise.resolve(turnOnLight(arr[i]))
     .then(function(){
       i++;
-      return new Promise(function(resolve){
+      return function(resolve){
       setTimeout(resolve, 500);
-    })
+    }
   })
     .then(function(resolve){
         if (i < arr.length) iterate();
